@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  @apply flex items-center justify-between flex-wrap bg-gray-300 dark:bg-gray-800 dark:text-white shadow-lg p-6 transition duration-300;
+}
+
+.navbar_menu_button {
+  @apply flex items-center px-3 py-2 border rounded hover:text-blue-800 hover:border-blue-800;
+}
+
+.navbar_links {
+  @apply block mt-4 lg:inline-block lg:mt-0 hover:text-blue-300 mr-4;
+}
+
+.main_container {
+  @apply container p-6 dark:text-white dark:bg-gray-800 transition duration-300;
+}
