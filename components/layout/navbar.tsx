@@ -1,5 +1,6 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { SunIcon, MoonIcon } from "@heroicons/react/solid";
 
 type Props = {
@@ -42,7 +43,7 @@ const Navbar = ({ children }: Props) => {
   return (
     <>
       <nav className="navbar">
-        <div className="flex items-center flex-shrink-0 mr-6">
+        <div className="navbar_logo">
           <span className="font-semibold text-xl tracking-tight">MyAnime</span>
         </div>
         <div className="block lg:hidden">
@@ -66,15 +67,12 @@ const Navbar = ({ children }: Props) => {
           } w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
         >
           <div className="text-sm lg:flex-grow">
-            <a href="#" className="navbar_links">
-              Link 1
-            </a>
-            <a href="#" className="navbar_links">
-              Link 2
-            </a>
-            <a href="#" className="navbar_links">
-              Link 3
-            </a>
+            <Link href="/" passHref>
+              <a className="navbar_links">Home</a>
+            </Link>
+            <Link href="https://github.com/cvrlnolan/myanime" passHref>
+              <a className="navbar_links">Repository</a>
+            </Link>
           </div>
         </div>
         <div className="py-2 lg:py-0">{renderThemeChanger()}</div>
