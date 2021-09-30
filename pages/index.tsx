@@ -5,6 +5,7 @@ import axios from "axios";
 import useSWR from "swr";
 import Navbar from "@/components/layout/navbar";
 import AnimeBox from "@/components/anime/animeBox";
+import LoadingBox from "@/components/anime/loadingBox";
 
 const Home: NextPage = () => {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -28,7 +29,13 @@ const Home: NextPage = () => {
   if (!data) {
     return (
       <>
-        <Navbar>Loading...</Navbar>
+        <Navbar>
+          <div className="flex flex-wrap space-x-2 justify-center">
+            {[...Array(100)].map((e, i) => (
+              <LoadingBox key={i} />
+            ))}
+          </div>
+        </Navbar>
       </>
     );
   }
@@ -54,7 +61,7 @@ const Home: NextPage = () => {
         <title>MyAnime</title>
       </Head>
       <Navbar>
-        <div className="flex flex-wrap justify-center mx-auto my-2 md:w-1/3">
+        <div className="flex flex-wrap mx-auto my-4 md:w-1/3">
           <input
             className="search_input"
             placeholder="Search Anime"
