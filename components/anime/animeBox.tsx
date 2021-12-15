@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 
 const AnimeBox = ({ anime }: any) => {
@@ -16,11 +17,19 @@ const AnimeBox = ({ anime }: any) => {
     <>
       <div className="card_grid">
         <div className="card_wrapper" onClick={openModal}>
-          <img
+          <div className="w-full h-60 relative">
+            <Image
+              alt="anime_img"
+              src={anime.cover_image}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          {/* <img
             alt="anime_img"
             src={anime.cover_image}
             className="w-full h-60 object-cover"
-          />
+          /> */}
           <div className="px-6 py-4">
             <div className="card_header">{anime.titles.en}</div>
             <p className="text-gray-700 dark:text-gray-400 text-base truncate">
