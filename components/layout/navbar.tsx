@@ -90,7 +90,7 @@ const Navbar = ({ children }: Props) => {
         <aside
           className={`${
             visible ? "flex" : "hidden"
-          } flex-col md:hidden w-64 h-screen p-4 top-0 left-0 z-30 absolute justify-between overscroll-y-scroll bg-white`}
+          } flex-col md:hidden w-64 h-full p-4 top-0 left-0 z-30 absolute justify-between  bg-white`}
         >
           <div className="flex w-full">
             <ul className="block space-y-6">
@@ -110,7 +110,7 @@ const Navbar = ({ children }: Props) => {
         <div
           className={`${
             visible ? "flex" : "hidden"
-          } flex-col md:hidden w-full h-screen top-0 right-0 absolute overflow-hidden bg-gray-900 opacity-75 z-10`}
+          } flex-col md:hidden w-full h-full top-0 right-0 absolute overflow-hidden bg-gray-900 opacity-75 z-10`}
           onClick={() => {
             if (visible) setVisible(false);
           }}

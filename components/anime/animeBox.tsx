@@ -23,6 +23,7 @@ const AnimeBox = ({ anime }: any) => {
               src={anime.cover_image}
               layout="fill"
               objectFit="cover"
+              priority
             />
           </div>
           <div className="px-6 py-4">
