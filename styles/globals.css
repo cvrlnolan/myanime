@@ -38,7 +38,7 @@ a {
 }
 
 .main_container {
-  @apply container min-h-screen p-6 dark:text-white dark:bg-gray-800;
+  @apply container min-h-screen p-6 relative dark:text-white dark:bg-gray-800;
 }
 
 .card_grid {

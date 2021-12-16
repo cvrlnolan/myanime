@@ -16,7 +16,12 @@ const Navbar = ({ children }: Props) => {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (visible) {
+      document.body.style.setProperty("overflow", "hidden");
+    } else {
+      document.body.style.removeProperty("overflow");
+    }
+  }, [visible]);
 
   const renderThemeChanger = () => {
     if (!mounted) return null;
@@ -82,6 +87,34 @@ const Navbar = ({ children }: Props) => {
         </nav>
       </div>
       <div className="main_container">
+        <aside
+          className={`${
+            visible ? "flex" : "hidden"
+          } flex-col md:hidden w-64 h-screen p-4 top-0 left-0 z-30 absolute justify-between overscroll-y-scroll bg-white`}
+        >
+          <div className="flex w-full">
+            <ul className="block space-y-6">
+              <li>
+                <Link href="/" passHref>
+                  <a className="navbar_links">Home</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://github.com/cvrlnolan/myanime" passHref>
+                  <a className="navbar_links">Repository</a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <div
+          className={`${
+            visible ? "flex" : "hidden"
+          } flex-col md:hidden w-full h-screen top-0 right-0 absolute overflow-hidden bg-gray-900 opacity-75 z-10`}
+          onClick={() => {
+            if (visible) setVisible(false);
+          }}
+        ></div>
         <div>{children}</div>
       </div>
     </>
