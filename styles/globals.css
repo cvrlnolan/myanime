@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +8,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }
 
 a {
@@ -19,12 +21,12 @@ a {
   box-sizing: border-box;
 }
 
-.navbar {
-  @apply flex items-center justify-between flex-wrap bg-gray-300 dark:bg-gray-900 dark:text-white drop-shadow-lg shadow-lg p-6 transition duration-300;
+.navbar_wrapper {
+  @apply flex w-full bg-gray-300 dark:bg-gray-900 dark:text-white drop-shadow-lg shadow-lg;
 }
 
 .navbar_logo {
-  @apply flex items-center flex-shrink-0 mr-6;
+  @apply flex mr-6;
 }
 
 .navbar_menu_button {
@@ -32,11 +34,11 @@ a {
 }
 
 .navbar_links {
-  @apply block mt-4 lg:inline-block lg:mt-0 hover:text-blue-800 dark:hover:text-blue-300 mr-4 transition duration-100;
+  @apply hover:text-blue-800 dark:hover:text-blue-300;
 }
 
 .main_container {
-  @apply container min-h-screen p-6 dark:text-white dark:bg-gray-800 transition duration-300;
+  @apply container min-h-screen p-6 dark:text-white dark:bg-gray-800;
 }
 
 .card_grid {
@@ -44,7 +46,7 @@ a {
 }
 
 .card_wrapper {
-  @apply max-w-sm rounded overflow-hidden bg-gray-200 dark:bg-gray-900 shadow-lg cursor-pointer hover:shadow-2xl transition duration-300;
+  @apply max-w-sm rounded overflow-hidden bg-gray-200 dark:bg-gray-900 shadow-lg cursor-pointer hover:shadow-2xl;
 }
 
 .card_header {
@@ -56,7 +58,7 @@ a {
 }
 
 .modal_container {
-  @apply inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl dark:bg-gray-900;
+  @apply inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transform bg-white shadow-xl rounded-2xl dark:bg-gray-900;
 }
 
 .modal_button {
