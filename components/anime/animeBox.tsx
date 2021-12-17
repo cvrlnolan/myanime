@@ -1,103 +1,69 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Dialog, Transition } from "@headlessui/react";
+import { usePopper } from "react-popper";
 
 const AnimeBox = ({ anime }: any) => {
-  let [isOpen, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
+  const [referenceElement, setReferenceElement] =
+    useState<HTMLDivElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
+    null
+  );
+  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "right",
+    modifiers: [
+      {
+        name: "arrow",
+        options: { element: arrowElement, padding: 5 },
+      },
+      { name: "offset", options: { offset: [0, 10] } },
+      {
+        name: "preventOverflow",
+        options: { mainAxis: true, rootBoundary: "document" },
+      },
+      { name: "flip", options: { fallbackPlacements: ["left", "top"] } },
+    ],
+  });
 
   return (
     <>
-      <div className="card_grid">
-        <div className="card_wrapper" onClick={openModal}>
-          <div className="w-full h-60 relative">
-            <Image
-              alt="anime_img"
-              src={anime.cover_image}
-              layout="fill"
-              objectFit="cover"
-              priority
-            />
-          </div>
-          <div className="px-6 py-4">
-            <div className="card_header">{anime.titles.en}</div>
-            <p className="text-gray-700 dark:text-gray-400 text-base truncate">
-              {anime.descriptions.en}
-              {(anime.descriptions.en === "" || null) &&
-                "No description available for this anime."}
-            </p>
-          </div>
+      <div
+        className="block w-52 space-y-4 cursor-pointer"
+        ref={setReferenceElement}
+        onMouseEnter={() => setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+      >
+        <div className="w-full h-64 relative rounded">
+          <Image
+            alt="anime_img"
+            src={anime.cover_image}
+            layout="fill"
+            objectFit="cover"
+            className="rounded"
+            priority
+          />
+        </div>
+        <div className="flex w-full justify-center">
+          <p>{anime.titles.en}</p>
         </div>
       </div>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
+      {visible && (
+        <div
+          ref={setPopperElement}
+          style={styles.popper}
+          {...attributes.popper}
+          className="bg-slate-50 shadow rounded z-30 opacity-80"
         >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="modal_container">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200"
-                >
-                  {anime.titles.en}
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    {anime.descriptions.en}
-                    {(anime.descriptions.en === "" || null) &&
-                      "No description available for this anime."}
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="modal_button"
-                    onClick={closeModal}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </Transition.Child>
+          <div className="flex w-52 h-52 p-4 overflow-hidden">
+            {anime.descriptions.en}
+            {(anime.descriptions.en === "" || null) &&
+              "No description available for this anime."}
           </div>
-        </Dialog>
-      </Transition>
+          <div ref={setArrowElement} style={styles.arrow} />
+        </div>
+      )}
     </>
   );
 };

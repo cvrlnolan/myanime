@@ -72,7 +72,7 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-        <div className="flex flex-wrap space-x-2 justify-center">
+        <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {searchResults &&
             searchResults.map((anime: any) => (
               <AnimeBox key={anime.id} anime={anime} />
