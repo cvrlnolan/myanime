@@ -30,8 +30,8 @@ const Home: NextPage = () => {
     return (
       <>
         <Navbar>
-          <div className="flex flex-wrap space-x-2 justify-center">
-            {[...Array(100)].map((e, i) => (
+          <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 gap-y-4 justify-items-center">
+            {[...Array(10)].map((e, i) => (
               <LoadingBox key={i} />
             ))}
           </div>
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-        <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
           {searchResults &&
             searchResults.map((anime: any) => (
               <AnimeBox key={anime.id} anime={anime} />
