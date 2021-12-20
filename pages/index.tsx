@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       <>
         <Navbar>
           <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 gap-y-4 justify-items-center">
-            {[...Array(10)].map((e, i) => (
+            {[...Array(10)].map((_, i) => (
               <LoadingBox key={i} />
             ))}
           </div>
