@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePopper } from "react-popper";
 import {
   animeStatus,
@@ -37,41 +38,38 @@ const AnimeBox = ({ anime }: any) => {
 
   return (
     <>
-      <div
-        className="block w-52 space-y-4 cursor-pointer"
-        ref={setReferenceElement}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-      >
+      <Link href={`/anime/${anime.id}`} passHref>
         <div
-          className="w-full h-64 relative rounded"
-          style={{ backgroundColor: anime.cover_color }}
+          className="block w-52 space-y-4 cursor-pointer"
+          ref={setReferenceElement}
+          onMouseEnter={() => setVisible(true)}
+          onMouseLeave={() => setVisible(false)}
         >
-          <Image
-            alt="anime_img"
-            src={anime.cover_image}
-            layout="fill"
-            objectFit="cover"
-            className="rounded"
-            priority
-          />
+          <div
+            className="w-full h-64 relative rounded"
+            style={{ backgroundColor: anime.cover_color }}
+          >
+            <Image
+              alt="anime_img"
+              src={anime.cover_image}
+              layout="fill"
+              objectFit="cover"
+              className="rounded"
+              priority
+            />
+          </div>
+          <div className="flex w-full justify-center">
+            <p className="text-sm">{anime.titles.en}</p>
+          </div>
         </div>
-        <div className="flex w-full justify-center">
-          <p className="text-sm">{anime.titles.en}</p>
-        </div>
-      </div>
+      </Link>
       {visible && (
         <div
           ref={setPopperElement}
           style={styles.popper}
           {...attributes.popper}
-          className="bg-slate-50 shadow rounded z-30 opacity-90"
+          className="hidden md:flex bg-slate-50 text-gray-700 shadow rounded z-30 opacity-90"
         >
-          {/* <div className="flex w-52 h-52 p-4 overflow-hidden">
-            {anime.descriptions.en}
-            {(anime.descriptions.en === "" || null) &&
-              "No description available for this anime."}
-          </div> */}
           <div className="block w-64 h-40 p-4 space-y-4">
             <div className="flex w-full justify-between">
               <p>{animeStatus(anime.status)}</p>

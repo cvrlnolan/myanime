@@ -53,14 +53,6 @@ a {
   @apply max-w-sm rounded overflow-hidden bg-gray-200 dark:bg-gray-900 shadow-lg cursor-pointer animate-pulse;
 }
 
-.modal_container {
-  @apply inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transform bg-white shadow-xl rounded-2xl dark:bg-gray-900;
-}
-
-.modal_button {
-  @apply inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500;
-}
-
 .search_input {
   @apply shadow bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500;
 }

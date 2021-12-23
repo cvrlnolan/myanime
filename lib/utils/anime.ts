@@ -69,3 +69,23 @@ export function animeGenres(genres: any[]): any[] {
   }
   return genres.sort();
 }
+
+export function animeSeason(season: number): string {
+  if (season === 0) {
+    return "Winter";
+  }
+  if (season === 1) {
+    return "Spring";
+  }
+  if (season === 2) {
+    return "Summer";
+  }
+  if (season === 3) {
+    return "Fall";
+  }
+  return "Unknown";
+}
+
+export function animeEpDuration(duration: number): string {
+  return duration + "minutes";
+}
