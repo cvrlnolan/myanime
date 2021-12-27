@@ -10,9 +10,9 @@ export default async function handler(
   try {
     const apiEndpoint = "https://api.aniapi.com/v1/anime/" + (id as string);
     const response = await axios.get(apiEndpoint);
-    const data = response.data;
+    const animeData = response.data;
     // console.log(data.data);
-    const anime = data.data;
+    const anime = animeData.data;
     res.status(200).json(anime);
   } catch (e: any) {
     console.log(e.message);

@@ -38,7 +38,7 @@ a {
 }
 
 .main_container {
-  @apply container min-h-screen p-6 relative dark:text-white dark:bg-gray-800;
+  @apply flex w-full justify-center min-h-screen relative dark:text-white dark:bg-gray-800;
 }
 
 .card_wrapper {

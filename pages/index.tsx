@@ -21,6 +21,9 @@ const Home: NextPage = () => {
   if (error) {
     return (
       <>
+        <Head>
+          <title>Error</title>
+        </Head>
         <Navbar>{error.message}</Navbar>
       </>
     );
@@ -29,16 +32,34 @@ const Home: NextPage = () => {
   if (!data) {
     return (
       <>
+        <Head>
+          <title>Loading ...</title>
+        </Head>
         <Navbar>
-          <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 gap-y-4 justify-items-center">
-            {[...Array(10)].map((_, i) => (
-              <LoadingBox key={i} />
-            ))}
+          <div className="flex w-full p-4">
+            <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 gap-y-4 justify-items-center">
+              {[...Array(10)].map((_, i) => (
+                <LoadingBox key={i} />
+              ))}
+            </div>
           </div>
         </Navbar>
       </>
     );
   }
+
+  const loadMore = async () => {
+    let next_page = data.current_page + 1;
+    try {
+      const response = await axios.post(
+        `/api/anime/paginate?page=${next_page}`
+      );
+      const data = response.data;
+      console.log(data);
+    } catch (e: any) {
+      console.error(e.message);
+    }
+  };
 
   const search = async (search: string) => {
     if (search !== "") {
@@ -61,7 +82,8 @@ const Home: NextPage = () => {
         <title>MyAnime</title>
       </Head>
       <Navbar>
-        <div className="flex flex-wrap mx-auto my-4 md:w-1/3">
+        {/* <div> */}
+        <div className="flex w-full p-4 mx-auto md:w-1/3">
           <input
             className="search_input"
             placeholder="Search Anime"
@@ -72,15 +94,26 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-        <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
-          {searchResults &&
-            searchResults.map((anime: any) => (
+        <div className="flex w-full p-4">
+          <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
+            {searchResults &&
+              searchResults.map((anime: any) => (
+                <AnimeBox key={anime.id} anime={anime} />
+              ))}
+            {data.animes.map((anime: any) => (
               <AnimeBox key={anime.id} anime={anime} />
             ))}
-          {data.map((anime: any) => (
-            <AnimeBox key={anime.id} anime={anime} />
-          ))}
+          </div>
         </div>
+        <div className="flex w-full my-4 justify-center">
+          <button
+            className="px-2 py-1.5 appearance-none rounded shadow bg-sky-200 text-gray-600 hover:bg-sky-300"
+            onClick={loadMore}
+          >
+            Load More
+          </button>
+        </div>
+        {/* </div> */}
       </Navbar>
     </>
   );
