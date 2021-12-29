@@ -11,7 +11,7 @@ import {
 } from "@/lib/utils/anime";
 import { EmojiHappyIcon } from "@heroicons/react/outline";
 
-const AnimeBox = ({ anime }: any) => {
+const AnimeBox: React.FC<{ anime: any }> = ({ anime }) => {
   const [visible, setVisible] = useState(false);
 
   const [referenceElement, setReferenceElement] =

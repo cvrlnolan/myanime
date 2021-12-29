@@ -1,22 +1,47 @@
 import type { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
-import useSWR from "swr";
 import Navbar from "@/components/layout/navbar";
 import AnimeBox from "@/components/anime/animeBox";
 import LoadingBox from "@/components/anime/loadingBox";
 
 const Home: NextPage = () => {
-  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  let [animes, setAnimes] = useState<any | undefined>();
 
-  const { data, error } = useSWR(() => "/api/anime/", fetcher);
+  let [page, setPage] = useState<number>(1);
+
+  let [loading, setLoading] = useState<boolean>(false);
+
+  let [error, setError] = useState<any | undefined>();
 
   const [value, setValue] = useState({
     search: "",
   });
 
   const [searchResults, setResults] = useState<any | null>();
+
+  useEffect(() => {
+    const loadAnimes = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.post(`/api/anime/paginate?page=${page}`);
+        const animes = response.data;
+        console.log(animes);
+        setAnimes(animes);
+      } catch (e: any) {
+        // console.error(e.message);
+        setError(e);
+      } finally {
+        setLoading(false);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    };
+    loadAnimes();
+  }, [page]);
 
   if (error) {
     return (
@@ -29,7 +54,7 @@ const Home: NextPage = () => {
     );
   }
 
-  if (!data) {
+  if (loading) {
     return (
       <>
         <Head>
@@ -49,16 +74,7 @@ const Home: NextPage = () => {
   }
 
   const loadMore = async () => {
-    let next_page = data.current_page + 1;
-    try {
-      const response = await axios.post(
-        `/api/anime/paginate?page=${next_page}`
-      );
-      const data = response.data;
-      console.log(data);
-    } catch (e: any) {
-      console.error(e.message);
-    }
+    setPage((page) => page + 1);
   };
 
   const search = async (search: string) => {
@@ -74,15 +90,12 @@ const Home: NextPage = () => {
     }
   };
 
-  // console.log(data);
-
   return (
     <>
       <Head>
         <title>MyAnime</title>
       </Head>
       <Navbar>
-        {/* <div> */}
         <div className="flex w-full p-4 mx-auto md:w-1/3">
           <input
             className="search_input"
@@ -94,15 +107,20 @@ const Home: NextPage = () => {
             }}
           />
         </div>
+        <div className="block md:flex px-4 w-full my-4 justify-between items-center">
+          <p className="text-lg">Top Rated Animes</p>
+          <p className="text-sm">{page} of 719 pages</p>
+        </div>
         <div className="flex w-full p-4">
           <div className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
             {searchResults &&
               searchResults.map((anime: any) => (
                 <AnimeBox key={anime.id} anime={anime} />
               ))}
-            {data.animes.map((anime: any) => (
-              <AnimeBox key={anime.id} anime={anime} />
-            ))}
+            {animes &&
+              animes.map((anime: any) => (
+                <AnimeBox key={anime.id} anime={anime} />
+              ))}
           </div>
         </div>
         <div className="flex w-full my-4 justify-center">
@@ -110,10 +128,9 @@ const Home: NextPage = () => {
             className="px-2 py-1.5 appearance-none rounded shadow bg-sky-200 text-gray-600 hover:bg-sky-300"
             onClick={loadMore}
           >
-            Load More
+            Next Page
           </button>
         </div>
-        {/* </div> */}
       </Navbar>
     </>
   );

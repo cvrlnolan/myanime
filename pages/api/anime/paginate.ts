@@ -6,13 +6,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { page } = req.query;
-//   console.log(page);
+  //   console.log(page);
   try {
     const apiEndpoint =
       "https://api.aniapi.com/v1/anime?per_page=20&page=" + (page as string);
     const response = await axios.get(apiEndpoint);
     const animeData = await response.data;
-    // console.log(data.data);
+    // console.log(animeData.data);
     const animes = animeData.data["documents"];
     res.status(200).json(animes);
   } catch (e: any) {
