@@ -77,6 +77,15 @@ const Home: NextPage = () => {
     setPage((page) => page + 1);
   };
 
+  const nextPage = async () => {
+    setPage((page) => page + 1);
+  };
+
+  const prevPage = async () => {
+    if (page === 1) return;
+    setPage((page) => page - 1);
+  };
+
   const search = async (search: string) => {
     if (search !== "") {
       try {
@@ -123,12 +132,18 @@ const Home: NextPage = () => {
               ))}
           </div>
         </div>
-        <div className="flex w-full my-4 justify-center">
+        <div className="flex w-1/2 mx-auto my-4 justify-between">
           <button
-            className="px-2 py-1.5 appearance-none rounded shadow bg-sky-200 text-gray-600 hover:bg-sky-300"
-            onClick={loadMore}
+            className="px-2 py-1.5 appearance-none rounded shadow bg-sky-200 text-gray-700 hover:bg-sky-300"
+            onClick={prevPage}
           >
-            Next Page
+            Back
+          </button>
+          <button
+            className="px-2 py-1.5 appearance-none rounded shadow bg-sky-200 text-gray-700 hover:bg-sky-300"
+            onClick={nextPage}
+          >
+            Next
           </button>
         </div>
       </Navbar>

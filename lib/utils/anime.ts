@@ -87,5 +87,5 @@ export function animeSeason(season: number): string {
 }
 
 export function animeEpDuration(duration: number): string {
-  return duration + "minutes";
+  return duration + " minutes";
 }
