@@ -5,4 +5,7 @@ module.exports = {
   images: {
     domains: ["s4.anilist.co"],
   },
+  future: {
+    webpack5: true,
+  },
 };
