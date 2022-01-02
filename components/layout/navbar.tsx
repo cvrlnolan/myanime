@@ -31,6 +31,8 @@ const Navbar = ({ children }: Props) => {
         <SunIcon
           className="inline-block w-7 h-7"
           role="button"
+          id="theme-button"
+          aria-label="theme-button"
           onClick={() => setTheme("light")}
         />
       );
@@ -39,6 +41,8 @@ const Navbar = ({ children }: Props) => {
         <MoonIcon
           className="inline-block w-7 h-7"
           role="button"
+          id="theme-button"
+          aria-label="theme-button"
           onClick={() => setTheme("dark")}
         />
       );
@@ -90,7 +94,7 @@ const Navbar = ({ children }: Props) => {
         <aside
           className={`${
             visible ? "flex" : "hidden"
-          } flex-col md:hidden w-64 h-full p-4 top-0 left-0 z-30 absolute justify-between  bg-white`}
+          } flex-col md:hidden w-64 h-full p-4 top-0 left-0 z-30 absolute justify-between text-gray-700 bg-white`}
         >
           <div className="flex w-full">
             <ul className="block space-y-6">
